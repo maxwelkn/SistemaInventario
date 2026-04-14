@@ -18,7 +18,8 @@ public class ConexionDB {
     // Constructor privado — nadie puede hacer "new ConexionDB()" desde afuera
     private ConexionDB() {
         try {
-            // Leer credenciales desde config.properties (nunca hardcodeadas)
+        	// Lee las credenciales desde config.properties (no incluido en el repositorio por seguridad)
+        	// Soporta conexión local y remota (aivencloud) solo cambiando el archivo config.properties
             Properties props = new Properties();
             InputStream input = getClass().getClassLoader()
                                 .getResourceAsStream("config.properties");
