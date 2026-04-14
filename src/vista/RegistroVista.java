@@ -1,6 +1,6 @@
 package vista;
 
-import dao.UsuarioDAO;
+import controlador.UsuarioControlador;
 import modelo.Usuario;
 
 import javax.swing.*;
@@ -117,9 +117,9 @@ public class RegistroVista extends JFrame {
         }
 
         Usuario u = new Usuario(0, usuario, nombre, apellido, telefono, email, password);
-        UsuarioDAO dao = new UsuarioDAO();
-
-        if (dao.registrar(u)) {
+        UsuarioControlador controlador = new UsuarioControlador();
+        
+        if (controlador.registrar(u)) {
             JOptionPane.showMessageDialog(this,
                 "Usuario registrado exitosamente.",
                 "Éxito", JOptionPane.INFORMATION_MESSAGE);

@@ -1,6 +1,6 @@
 package vista;
 
-import dao.UsuarioDAO;
+import controlador.UsuarioControlador;
 import modelo.Usuario;
 
 import javax.swing.*;
@@ -13,12 +13,12 @@ public class UsuarioFormVista extends JFrame {
     private JButton btnGuardar, btnVolver;
     private UsuariosVista ventanaAnterior;
     private Usuario usuarioEditar;
-    private UsuarioDAO dao;
+    private UsuarioControlador controlador;
 
     public UsuarioFormVista(UsuariosVista ventanaAnterior, Usuario usuarioEditar) {
         this.ventanaAnterior = ventanaAnterior;
         this.usuarioEditar   = usuarioEditar;
-        this.dao             = new UsuarioDAO();
+        this.controlador = new UsuarioControlador();
 
         setTitle(usuarioEditar == null ? "Nuevo Usuario" : "Editar Usuario");
         setSize(420, 450);
@@ -134,7 +134,7 @@ public class UsuarioFormVista extends JFrame {
             }
 
             Usuario u = new Usuario(0, usuario, nombre, apellido, telefono, email, password);
-            if (dao.registrar(u)) {
+            if (controlador.registrar(u)) {
                 JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
                 volver();
             } else {
@@ -148,7 +148,7 @@ public class UsuarioFormVista extends JFrame {
             usuarioEditar.setTelefono(telefono);
             usuarioEditar.setEmail(email);
 
-            if (dao.actualizar(usuarioEditar)) {
+            if (controlador.actualizar(usuarioEditar)) {
                 JOptionPane.showMessageDialog(this, "Usuario actualizado exitosamente.");
                 volver();
             } else {

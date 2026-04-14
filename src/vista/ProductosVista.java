@@ -1,6 +1,6 @@
 package vista;
 
-import dao.ProductoDAO;
+import controlador.ProductoControlador;
 import modelo.Producto;
 
 import javax.swing.*;
@@ -14,11 +14,11 @@ public class ProductosVista extends JFrame {
     private DefaultTableModel modeloTabla;
     private JButton btnNuevo, btnVolver;
     private JFrame ventanaAnterior;
-    private ProductoDAO dao;
+    private ProductoControlador controlador;
 
     public ProductosVista(JFrame ventanaAnterior) {
         this.ventanaAnterior = ventanaAnterior;
-        this.dao = new ProductoDAO();
+        this.controlador = new ProductoControlador();
         setTitle("Gestión de Productos");
         setSize(800, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,7 +89,7 @@ public class ProductosVista extends JFrame {
 
     public void cargarTabla() {
         modeloTabla.setRowCount(0);
-        List<Producto> lista = dao.listar();
+        List<Producto> lista = controlador.listar();
         for (Producto p : lista) {
             modeloTabla.addRow(new Object[]{
                 p.getIdProducto(),
@@ -112,7 +112,7 @@ public class ProductosVista extends JFrame {
         if (fila == -1) return;
 
         int id = (int) modeloTabla.getValueAt(fila, 0);
-        List<Producto> lista = dao.listar();
+        List<Producto> lista = controlador.listar();
         Producto p = lista.stream()
                          .filter(x -> x.getIdProducto() == id)
                          .findFirst().orElse(null);

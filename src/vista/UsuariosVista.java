@@ -1,6 +1,6 @@
 package vista;
 
-import dao.UsuarioDAO;
+import controlador.UsuarioControlador;
 import modelo.Usuario;
 
 import javax.swing.*;
@@ -14,11 +14,11 @@ public class UsuariosVista extends JFrame {
     private DefaultTableModel modeloTabla;
     private JButton btnNuevo, btnActualizar, btnEliminar, btnVolver;
     private JFrame ventanaAnterior;
-    private UsuarioDAO dao;
+    private UsuarioControlador controlador;
 
     public UsuariosVista(JFrame ventanaAnterior) {
         this.ventanaAnterior = ventanaAnterior;
-        this.dao = new UsuarioDAO();
+        this.controlador = new UsuarioControlador();
         setTitle("Gestión de Usuarios");
         setSize(750, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,7 +85,7 @@ public class UsuariosVista extends JFrame {
 
     public void cargarTabla() {
         modeloTabla.setRowCount(0);
-        List<Usuario> lista = dao.listar();
+        List<Usuario> lista = controlador.listar();
         for (Usuario u : lista) {
             modeloTabla.addRow(new Object[]{
                 u.getIdUser(),
@@ -111,7 +111,7 @@ public class UsuariosVista extends JFrame {
             return;
         }
         int id = (int) modeloTabla.getValueAt(fila, 0);
-        List<Usuario> lista = dao.listar();
+        List<Usuario> lista = controlador.listar();
         Usuario u = lista.stream().filter(x -> x.getIdUser() == id).findFirst().orElse(null);
         abrirFormulario(u);
     }
@@ -129,7 +129,7 @@ public class UsuariosVista extends JFrame {
 
         if (confirmar == JOptionPane.YES_OPTION) {
             int id = (int) modeloTabla.getValueAt(fila, 0);
-            dao.eliminar(id);
+            controlador.eliminar(id);
             cargarTabla();
         }
     }

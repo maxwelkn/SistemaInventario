@@ -1,6 +1,6 @@
 package vista;
 
-import dao.UsuarioDAO;
+import controlador.UsuarioControlador;
 import modelo.Usuario;
 
 import javax.swing.*;
@@ -87,8 +87,8 @@ public class LoginVista extends JFrame {
             return;
         }
 
-        UsuarioDAO dao = new UsuarioDAO();
-        Usuario u = dao.login(usuario, password);
+        UsuarioControlador controlador = new UsuarioControlador();
+        Usuario u = controlador.login(usuario, password);
 
         if (u != null) {
             dispose(); // cierra el login

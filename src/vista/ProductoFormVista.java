@@ -1,6 +1,6 @@
 package vista;
 
-import dao.ProductoDAO;
+import controlador.ProductoControlador;
 import modelo.Producto;
 
 import javax.swing.*;
@@ -12,12 +12,12 @@ public class ProductoFormVista extends JFrame {
     private JButton btnGuardar, btnEliminar, btnVolver;
     private ProductosVista ventanaAnterior;
     private Producto productoEditar;
-    private ProductoDAO dao;
+    private ProductoControlador controlador;
 
     public ProductoFormVista(ProductosVista ventanaAnterior, Producto productoEditar) {
         this.ventanaAnterior = ventanaAnterior;
         this.productoEditar  = productoEditar;
-        this.dao             = new ProductoDAO();
+        this.controlador = new ProductoControlador();
 
         setTitle(productoEditar == null ? "Nuevo Producto" : "Editar Producto");
         setSize(400, 380);
@@ -134,7 +134,7 @@ public class ProductoFormVista extends JFrame {
         if (productoEditar == null) {
             // MODO NUEVO
             Producto p = new Producto(0, nombre, marca, categoria, precio, stock);
-            if (dao.registrar(p)) {
+            if (controlador.registrar(p)) {
                 JOptionPane.showMessageDialog(this, "Producto registrado exitosamente.");
                 volver();
             } else {
@@ -148,7 +148,7 @@ public class ProductoFormVista extends JFrame {
             productoEditar.setPrecio(precio);
             productoEditar.setStock(stock);
 
-            if (dao.actualizar(productoEditar)) {
+            if (controlador.actualizar(productoEditar)) {
                 JOptionPane.showMessageDialog(this, "Producto actualizado exitosamente.");
                 volver();
             } else {
@@ -163,7 +163,7 @@ public class ProductoFormVista extends JFrame {
             "Eliminar", JOptionPane.YES_NO_OPTION);
 
         if (confirmar == JOptionPane.YES_OPTION) {
-            dao.eliminar(productoEditar.getIdProducto());
+        	controlador.eliminar(productoEditar.getIdProducto());
             JOptionPane.showMessageDialog(this, "Producto eliminado exitosamente.");
             volver();
         }
